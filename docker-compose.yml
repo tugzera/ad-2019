@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   mongodb:
@@ -11,8 +11,8 @@ services:
     volumes:
       - ./database:/data/db
     networks:
-            - jupiter
+      - jupiter
 
-networks: 
-    jupiter:
-        driver: bridge
+networks:
+  jupiter:
+    driver: bridge

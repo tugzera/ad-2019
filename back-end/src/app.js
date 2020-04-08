@@ -15,7 +15,10 @@ class App {
   }
 
   database() {
-    mongoose.connect(db.uri, { useUnifiedTopology: true });
+    mongoose.connect(db.uri, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
   }
 
   middleware() {

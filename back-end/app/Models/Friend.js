@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 
-const HamburgerSchema = new mongoose.Schema(
+const FriendSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    price: {
-      type: Number,
+    email: {
+      type: String,
       required: true,
+    },
+    secret_friend: {
+      type: mongoose.ObjectId,
     },
   },
   {
@@ -16,4 +19,4 @@ const HamburgerSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Hamburger", HamburgerSchema);
+module.exports = mongoose.model("Friends", FriendSchema);

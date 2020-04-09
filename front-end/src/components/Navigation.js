@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Menu, Typography } from "antd";
-import { FaDice, FaUserFriends } from "react-icons/fa";
-import styled from "styled-components";
+
+import { TeamOutlined, StarOutlined } from "@ant-design/icons";
 
 import history from "../services/history";
 
@@ -19,25 +19,15 @@ const Navigation = ({ children }) => {
         onCollapse={() => setCollapse(!collapse)}
       >
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <StyledMenuItem key="1" onClick={() => history.push("/friends")}>
-            <div
-              className="container"
-              style={{
-                flex: 1,
-                flexDirection: "row"
-              }}
-            >
-              <FaUserFriends size={32} style={{ paddingRight: 5 }} />
-              <Text style={{ fontSize: 28, color: "#ffff", paddingVertical: 10 }}>Amigos</Text>
-            </div>
-          </StyledMenuItem>
+          <Menu.Item key="1" onClick={() => history.push("/friends")}>
+            <TeamOutlined style={{ fontSize: 28 }} />
+            <Text style={{ fontSize: 18, color: "#ffff" }}>Amigos</Text>
+          </Menu.Item>
 
-          <StyledMenuItem key="2" onClick={() => history.push("/game")}>
-            <div className="container">
-              <FaDice size={32} />
-              <Text style={{ fontSize: 28, color: "#ffff" }}>Jogar</Text>
-            </div>
-          </StyledMenuItem>
+          <Menu.Item key="2" onClick={() => history.push("/game")}>
+            <StarOutlined style={{ fontSize: 28 }} />
+            <Text style={{ fontSize: 18, color: "#ffff" }}>Jogar</Text>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -60,9 +50,5 @@ const Navigation = ({ children }) => {
     </Layout>
   );
 };
-
-const StyledMenuItem = styled(Menu.Item)`
-  height: 500;
-`;
 
 export default Navigation;

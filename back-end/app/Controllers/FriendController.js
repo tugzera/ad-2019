@@ -15,29 +15,45 @@ class FriendController {
   }
 
   async store(req, res) {
-    const data = await Friend.create(req.body);
-
-    return res.json(data);
+    try {
+      const data = req.body;
+      const item = await Friend.create(data);
+      return res.json(item);
+    } catch (err) {
+      res.status(501).json({ message: "Internal server Error." });
+    }
   }
 
   async update(req, res) {
-    const data = req.body;
-    await Friend.findOneAndUpdate({ _id: req.params.id }, data, (err, item) => {
-      res.send(item);
-    });
+    try {
+      const data = req.body;
+      const { id } = req.params;
+      const item = await Friend.findById(id);
+      if (item) {
+        item.nome = data.nome;
+        item.email = data.email;
+        item.secret_friend = data.secret_friend;
+        await item.save();
+        return res.json(item);
+      }
+      throw new Error();
+    } catch (err) {
+      return res.status(404).json({ message: "Document not found." });
+    }
   }
 
   async destroy(req, res) {
-    const id = req.params.id;
-    await Friend.findByIdAndRemove(id, {}, (err, item) => {
+    try {
+      const { id } = req.params;
+      const item = await Friend.findById(id);
       if (item) {
-        return res.status(200).send({
-          message: "Item successfully deleted",
-        });
+        await item.remove()
+        return res.end();
       }
-
-     return res.status(404).send("Not Found");
-    });
+      throw new Error();
+    } catch (err) {
+      return res.status(404).json({ message: "Document not found." });
+    }
   }
 }
 

@@ -9,6 +9,7 @@ const FriendSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     secret_friend: {
       type: mongoose.ObjectId,

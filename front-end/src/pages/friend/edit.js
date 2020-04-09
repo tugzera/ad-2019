@@ -1,16 +1,16 @@
 import React from "react";
 import { Card, Button, Form, Input } from "antd";
-import styled from "styled-components";
 
 import history from "../../services/history.js";
 
-const FriendCreate = ({match}) => {
-  const {id} = match.params
-  console.log(id)
+const FriendCreate = ({ match }) => {
   return (
-    <StyledCard
+    <Card
       size="large"
-      title="Editar amigo"
+      title="Cadastrar amigo"
+      bodyStyle={{
+        justifyContent: "center",
+      }}
       extra={
         <div class="container">
           <Button type="primary" style={{ marginRight: 4 }}>
@@ -20,30 +20,22 @@ const FriendCreate = ({match}) => {
         </div>
       }
     >
-      <div>
-        <Form
-          labelCol={{ span: 4 }}
-          wrapperCol={{ span: 5 }}
-          layout="horizontal"
-          size="large"
-        >
-          <Form.Item label="Nome">
-            <Input />
-          </Form.Item>
+      <Form
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 6 }}
+        layout="horizontal"
+        size="large"
+      >
+        <Form.Item label="Nome">
+          <Input />
+        </Form.Item>
 
-          <Form.Item label="Email">
-            <Input />
-          </Form.Item>
-        </Form>
-      </div>
-    </StyledCard>
+        <Form.Item label="Email">
+          <Input />
+        </Form.Item>
+      </Form>
+    </Card>
   );
 };
-
-const StyledCard = styled(Card)`
-  margin: 0 auto;
-  float: none;
-  margin-bottom: 10px;
-`;
 
 export default FriendCreate;

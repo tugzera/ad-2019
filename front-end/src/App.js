@@ -1,15 +1,19 @@
-import React from "react";
-import { Button } from "antd";
+import React from 'react';
+// import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import Routes from './routes';
+import history from './services/history';
 
-import './App.css'
+import "./App.css";
 
-import Home from "./pages/home";
+
 
 function App() {
   return (
     <div className="body">
-      <Home>
-      </Home>
+        <Router history={history}>
+          <Routes />
+        </Router>
     </div>
   );
 }

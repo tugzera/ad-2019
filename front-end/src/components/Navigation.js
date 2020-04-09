@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Layout, Menu, Card } from "antd";
+import { Layout, Menu } from "antd";
 import { UserOutlined, SmileOutlined } from "@ant-design/icons";
 
-import "./styles.css";
+import history from "../services/history";
 
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const { Header, Footer, Sider, Content } = Layout;
 
-const Home = () => {
+const Navigation = ({ children }) => {
   const [collapse, setCollapse] = useState(false);
-
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider
@@ -18,12 +16,12 @@ const Home = () => {
         onCollapse={() => setCollapse(!collapse)}
       >
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-          <Menu.Item key="1">
+          <Menu.Item key="1" onClick={() => history.push("/friends")}>
             <UserOutlined />
             <span>Amigos</span>
           </Menu.Item>
 
-          <Menu.Item key="2">
+          <Menu.Item key="2" onClick={() => history.push("/game")}>
             <SmileOutlined />
             <span>Jogar</span>
           </Menu.Item>
@@ -39,28 +37,15 @@ const Home = () => {
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
-            {/* <Card
-              title="Default size card"
-              extra={
-                <>
-                  <a href="#">More</a>
-                  <a href="#">More</a>
-                </>
-              }
-              style={{ width: 300 }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card> */}
+            {children}
           </div>
         </Content>
-        {/* <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
-        </Footer> */}
+        <Footer style={{ textAlign: "center" }}>
+          Adireto Challange ©2020 Created by Damasceno
+        </Footer>
       </Layout>
     </Layout>
   );
 };
 
-export default Home;
+export default Navigation;

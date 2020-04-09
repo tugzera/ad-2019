@@ -1,9 +1,11 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import './styles.css'
 
-export default function friend() {
+const Friend = () => {
   return (
     <h1>Friend page works!</h1>
   );
 }
+
+export default Friend;

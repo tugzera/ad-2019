@@ -1,17 +1,22 @@
 import React from "react";
 import { Switch } from "react-router";
-import Route from "./Route";
+import Route from "./Routes";
 
-import Home from '../pages/home'
-import Friend from '../pages/friend'
-import Game from '../pages/game'
+import Navigation from "../components/Navigation";
+import HomePage from "../pages/home";
+import FriendPage from "../pages/friend";
+import GamePage from "../pages/game";
 
 export default function Routes() {
   return (
+    <>
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/friends" exact component={Friend} />
-      <Route path="/game" exact component={Game} />
+      <Navigation>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/friends" exact component={FriendPage} />
+        <Route path="/game" exact component={GamePage} />
+      </Navigation>
     </Switch>
+    </>
   );
 }

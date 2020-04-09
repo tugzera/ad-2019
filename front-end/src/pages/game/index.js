@@ -1,9 +1,7 @@
-import React from 'react';
+import React from "react";
 
-// import { Container } from './styles';
+const Game = () => {
+  return <h1>Game page works!</h1>;
+};
 
-export default function game() {
-  return (
-   <h1>Game page works!</h1>
-  );
-}
+export default Game;

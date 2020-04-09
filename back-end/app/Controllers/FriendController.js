@@ -21,20 +21,23 @@ class FriendController {
   }
 
   async update(req, res) {
-    const id = req.params.id;
     const data = req.body;
-    const item = await Friend.findByIdAndUpdate(
-      id,
-      { name: "jason bourne" },
-      options,
-      callback
-    );
-    return item;
+    await Friend.findOneAndUpdate({ _id: req.params.id }, data, (err, item) => {
+      res.send(item);
+    });
   }
 
   async destroy(req, res) {
     const id = req.params.id;
-    const item = await Friend.findByIdAndDelete(id);
+    await Friend.findByIdAndRemove(id, {}, (err, item) => {
+      if (item) {
+        return res.status(200).send({
+          message: "Item successfully deleted",
+        });
+      }
+
+     return res.status(404).send("Not Found");
+    });
   }
 }
 

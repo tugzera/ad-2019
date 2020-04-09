@@ -10,8 +10,8 @@ routes.get("/", (request, response) => {
 
 routes.get("/friends", FriendController.index);
 routes.get("/friends/:id", FriendController.show);
-// routes.put("/friends/:id", FriendController.update);
-// routes.delete("/friends/:id", FriendController.destroy);
 routes.post("/friends", FriendController.store);
+routes.put("/friends/:id", FriendController.update);
+routes.delete("/friends/:id", FriendController.destroy);
 
 module.exports = routes;

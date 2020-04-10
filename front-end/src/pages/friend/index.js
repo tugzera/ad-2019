@@ -1,35 +1,45 @@
-import React from "react";
-import { Card, Button, Table, Row } from "antd";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Card, Button, Table, Row, Modal } from "antd";
 import { FaUserPlus } from "react-icons/fa";
+import collect from "collect.js";
 
 import history from "../../services/history.js";
 
-import "./styles.css";
+import Friends from "../../store/modules/friends";
 
 const Friend = () => {
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      email: "johndoe@test.com",
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      email: "johndoe@test.com",
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      email: "johndoe@test.com",
-      address: "Sidney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const store = useSelector((value) => value.friends);
+
+  const { items, loading } = store;
+
+  useEffect(() => {
+    dispatch(Friends.findMany());
+    // eslint-disable-next-line
+  }, []);
+
+  const handleList = (list) => {
+    if (list.length > 0) {
+      const organizedList = collect(list).sortBy("name").toArray();
+      return organizedList;
+    }
+    return [];
+  };
+
+  const [modal, setModal] = useState({
+    status: false,
+    record: "",
+  });
+
+  const handleDestroy = (id) => {
+    dispatch(Friends.destroy(id));
+    setModal({
+      status: false,
+      record: "",
+    });
+  };
 
   const columns = [
     {
@@ -52,11 +62,20 @@ const Friend = () => {
           <Button
             type="secondary"
             style={{ marginRight: 5 }}
-            onClick={() => history.push(`/friends/edit/${record.key}`)}
+            onClick={() => history.push(`/friends/edit/${record._id}`)}
           >
             Editar
           </Button>
-          <Button danger type="primary">
+          <Button
+            danger
+            type="primary"
+            onClick={() =>
+              setModal({
+                status: true,
+                record: record._id,
+              })
+            }
+          >
             Excluir
           </Button>
         </>
@@ -66,6 +85,14 @@ const Friend = () => {
 
   return (
     <>
+      <Modal
+        title="Você deseja excluir este amigo da sua lista?"
+        visible={modal.status}
+        onOk={() => handleDestroy(modal.record)}
+        onCancel={() => setModal(false)}
+      >
+        <p>Após realizar esta ação está não poderá ser desfeita.</p>
+      </Modal>
       <Card
         size="large"
         bodyStyle={{
@@ -85,8 +112,11 @@ const Friend = () => {
       >
         <Row align="middle" justify="center">
           <Table
+            rowKey="_id"
+            pagination={{ pageSize: 20 }}
             columns={columns}
-            dataSource={data}
+            dataSource={handleList(items)}
+            loading={loading}
             tableLayout="fixed"
             style={{
               maxWidth: 800,

@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
+import { message } from "antd";
 import api from "../../../services/api";
-// import { toaster } from "evergreen-ui";
 
 import history from "../../../services/history";
 
@@ -9,14 +9,13 @@ import history from "../../../services/history";
  */
 export function* findManyEffect() {
   try {
-    const response = yield call(api.get, `v1/vendedores`);
-    yield put({ type: "@vendedores/BROWSE_SUCCESS", payload: response.data });
+    const response = yield call(api.get, `friends`);
+    yield put({ type: "@friends/BROWSE_SUCCESS", payload: response.data });
   } catch (error) {
     const failed = error.response
       ? error.response.data
       : { errors: { message: error.message } };
-    yield put({ type: "@vendedores/BROWSE_FAILURE", failed });
-    // toaster.danger(failed.errors.message);
+    yield put({ type: "@friends/BROWSE_FAILURE", failed });
   }
 }
 
@@ -26,18 +25,16 @@ export function* findManyEffect() {
 export function* findOneEffect({ payload }) {
   try {
     const { id } = payload;
-    const response = yield call(api.get, `v1/vendedores/${id}`);
-
+    const response = yield call(api.get, `friends/${id}`);
     yield put({
-      type: "@vendedores/READ_SUCCESS",
+      type: "@friends/READ_SUCCESS",
       payload: response.data,
     });
   } catch (error) {
     const failed = error.response
       ? error.response.data
       : { errors: { message: error.message } };
-    yield put({ type: "@vendedores/READ_FAILURE", failed });
-    // toaster.danger(failed.errors.message);
+    yield put({ type: "@friends/READ_FAILURE", failed });
   }
 }
 
@@ -47,22 +44,16 @@ export function* findOneEffect({ payload }) {
 export function* storeEffect({ payload }) {
   try {
     const { data } = payload;
-    const response = yield call(api.post, `v1/vendedores`, data);
-    yield put({ type: "@vendedores/ADD_SUCCESS", payload: response.data });
-    // toaster.success("Vendedor cadastrado com sucesso!!");
+    const response = yield call(api.post, `friends`, data);
+    yield put({ type: "@friends/ADD_SUCCESS", payload: response.data });
     history.goBack();
+    message.success("Amigo cadastrado com sucesso!");
   } catch (error) {
     const failed = error.response
       ? error.response.data
       : { errors: { message: error.message } };
-    yield put({ type: "@vendedores/ADD_FAILURE", failed });
-    // toaster.danger(
-    //   `${failed.errors.message}${
-    //     failed.errors.details
-    //       ? failed.errors.details.map((item) => item.message)
-    //       : ""
-    //   }`
-    // );
+    message.error("Desculpe, não foi possível atualizar.");
+    yield put({ type: "@friends/ADD_FAILURE", failed });
   }
 }
 
@@ -72,17 +63,17 @@ export function* storeEffect({ payload }) {
 export function* updateEffect({ payload }) {
   try {
     const { id, data } = payload;
-    const response = yield call(api.patch, `v1/vendedores/${id}`, data);
+    const response = yield call(api.put, `friends/${id}`, data);
 
-    yield put({ type: "@vendedores/EDIT_SUCCESS", payload: response.data });
-    // toaster.success("Vendedor atualizado com sucesso!!");
+    yield put({ type: "@friends/EDIT_SUCCESS", payload: response.data });
     history.goBack();
+    message.success("Amigo atualizado com sucesso!");
   } catch (error) {
     const failed = error.response
       ? error.response.data
       : { errors: { message: error.message } };
-    yield put({ type: "@vendedores/EDIT_FAILURE", failed });
-    // toaster.danger(failed.errors.message);
+    message.error("Desculpe, não foi possível atualizar.");
+    yield put({ type: "@friends/EDIT_FAILURE", failed });
   }
 }
 
@@ -92,22 +83,22 @@ export function* updateEffect({ payload }) {
 export function* destroyEffect({ payload }) {
   try {
     const { id } = payload;
-    yield call(api.delete, `v1/vendedores/${id}`);
-    yield put({ type: "@vendedores/DESTROY_SUCCESS", payload: { id } });
-    // toaster.success("Vendedor excluído com sucesso!!");
+    yield call(api.delete, `friends/${id}`);
+    yield put({ type: "@friends/DESTROY_SUCCESS", payload: { id } });
+    message.success("Amigo excluído com sucesso!");
   } catch (error) {
     const failed = error.response
       ? error.response.data
       : { errors: { message: error.message } };
-    yield put({ type: "@vendedores/DESTROY_FAILURE", failed });
-    // toaster.danger(failed.errors.message);
+    message.error("Desculpe, não foi possível excluir este item.");
+    yield put({ type: "@friends/DESTROY_FAILURE", failed });
   }
 }
 
 export default all([
-  takeLatest("@vendedores/BROWSE_REQUEST", findManyEffect),
-  takeLatest("@vendedores/READ_REQUEST", findOneEffect),
-  takeLatest("@vendedores/ADD_REQUEST", storeEffect),
-  takeLatest("@vendedores/EDIT_REQUEST", updateEffect),
-  takeLatest("@vendedores/DESTROY_REQUEST", destroyEffect),
+  takeLatest("@friends/BROWSE_REQUEST", findManyEffect),
+  takeLatest("@friends/READ_REQUEST", findOneEffect),
+  takeLatest("@friends/ADD_REQUEST", storeEffect),
+  takeLatest("@friends/EDIT_REQUEST", updateEffect),
+  takeLatest("@friends/DESTROY_REQUEST", destroyEffect),
 ]);

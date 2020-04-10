@@ -23,19 +23,19 @@ function friends(state = INITIAL_STATE, action) {
         break;
       }
       case "@friends/BROWSE_SUCCESS": {
-        draft.items = action.payload.items;
+        draft.items = action.payload;
         draft.loading = false;
         draft.refreshing = false;
         break;
       }
       case "@friends/READ_SUCCESS": {
-        draft.data = action.payload.items;
+        draft.data = action.payload;
         draft.loading = false;
         draft.refreshing = false;
         break;
       }
       case "@friends/ADD_SUCCESS": {
-        const { items } = action.payload;
+        const items = action.payload;
         draft.data = items;
         draft.items = [items].concat(state.items);
         draft.loading = false;
@@ -43,8 +43,8 @@ function friends(state = INITIAL_STATE, action) {
         break;
       }
       case "@friends/EDIT_SUCCESS": {
-        const { id, ...rest } = action.payload.items;
-        draft.data = action.payload.items;
+        const { id, ...rest } = action.payload;
+        draft.data = action.payload;
         draft.items = state.items.map((item) => {
           if (item.id === id) {
             return { ...item, ...rest };
@@ -57,7 +57,7 @@ function friends(state = INITIAL_STATE, action) {
       }
       case "@friends/DESTROY_SUCCESS": {
         const { id } = action.payload;
-        draft.items = state.items.filter((item) => item.id !== id);
+        draft.items = state.items.filter((item) => item._id !== id);
         draft.loading = false;
         draft.refreshing = false;
         break;

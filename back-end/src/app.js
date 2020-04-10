@@ -1,5 +1,6 @@
 const express = require("express");
 const routes = require("./routes");
+const cors = require("cors");
 const db = require("../database/config");
 const mongoose = require("mongoose");
 
@@ -24,6 +25,7 @@ class App {
 
   middleware() {
     this.server.use(express.json());
+    this.server.use(cors({ origin: "*" }));
   }
 
   routes() {

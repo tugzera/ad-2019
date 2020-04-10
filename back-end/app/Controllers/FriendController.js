@@ -30,7 +30,7 @@ class FriendController {
       const { id } = req.params;
       const item = await Friend.findById(id);
       if (item) {
-        item.nome = data.nome;
+        item.name = data.name;
         item.email = data.email;
         item.secret_friend = data.secret_friend;
         await item.save();

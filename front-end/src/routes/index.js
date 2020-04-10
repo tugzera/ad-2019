@@ -7,7 +7,6 @@ import HomePage from "../pages/home";
 import FriendPage from "../pages/friend";
 import FriendCreatePage from "../pages/friend/create";
 import FriendEditPage from '../pages/friend/edit'
-import GamePage from "../pages/game";
 
 export default function Routes() {
   return (
@@ -18,7 +17,6 @@ export default function Routes() {
           <Route path="/friends" exact component={FriendPage} />
           <Route path="/friends/create" component={FriendCreatePage} />
           <Route path="/friends/edit/:id" component={FriendEditPage} />
-          <Route path="/game" exact component={GamePage} />
         </Navigation>
       </Switch>
     </>

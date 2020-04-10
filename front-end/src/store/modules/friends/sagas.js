@@ -52,7 +52,7 @@ export function* storeEffect({ payload }) {
     const failed = error.response
       ? error.response.data
       : { errors: { message: error.message } };
-    message.error("Desculpe, não foi possível atualizar.");
+    message.error("Desculpe, não foi possível cadastrar.");
     yield put({ type: "@friends/ADD_FAILURE", failed });
   }
 }

@@ -65,8 +65,8 @@ const FriendCreate = ({ match }) => {
         >
           <Form.Item
             label="Nome"
-            validateStatus={errors && errors.nome ? "error" : ""}
-            help={errors && errors.nome ? errors.nome : ""}
+            validateStatus={errors && errors.name ? "error" : ""}
+            help={errors && errors.name ? errors.name : ""}
           >
             <Input
               value={values && values.name ? values.name : ""}

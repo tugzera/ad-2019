@@ -1,9 +1,9 @@
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-export default reducers => {
+export default (reducers) => {
   const persistedReducer = persistReducer(
-    { key: 'toolbox', storage, whitelist: ['auth', 'user'] },
+    { key: "adiretochallenge", storage, whitelist: [] },
     reducers
   );
 

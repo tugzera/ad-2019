@@ -23,10 +23,10 @@ const makePairs = (list) => {
 
 // Return full list with each friend sorted
 const makeSortedList = (list) => {
-  const pairedList = makePairs(splitList(list.length/2, randomSorter(list)))
+  const pairedList = makePairs(splitList(list.length / 2, randomSorter(list)));
   var fullList = [];
   for (let i = 0; i < pairedList.length; i++) {
-    if (i === pairedList.length -1) {
+    if (i === pairedList.length - 1) {
       fullList.push(pairedList[i]);
       fullList.push([pairedList[i][1], pairedList[0][0]]);
       break;
@@ -36,6 +36,5 @@ const makeSortedList = (list) => {
   }
   return fullList;
 };
-
 
 export default makeSortedList;

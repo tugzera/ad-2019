@@ -10,7 +10,6 @@ import ptBR from "antd/es/locale/pt_BR";
 
 import { persistor, store } from "./store";
 
-import "./App.css";
 
 function App() {
   return (

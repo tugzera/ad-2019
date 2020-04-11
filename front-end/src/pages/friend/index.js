@@ -70,7 +70,7 @@ const Friend = () => {
       render: (text) => text,
     },
     {
-      title: "Email",
+      title: "E-mail",
       dataIndex: "email",
       key: "email",
       sorter: (a, b) => handleStringSorter(a.name, b.name),
@@ -195,7 +195,7 @@ const Friend = () => {
         onCancel={() => setRandomModal(false)}
       >
         <Typography.Text>
-          Será enviado um email informando quem é o amigo secreto de cada
+          Será enviado um e-mail informando quem é o amigo secreto de cada
           participante listado abaixo:
           <br />
           <br />

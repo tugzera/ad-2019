@@ -6,7 +6,7 @@ import Navigation from "../components/Navigation";
 import HomePage from "../pages/home";
 import FriendPage from "../pages/friend";
 import FriendCreatePage from "../pages/friend/create";
-import FriendEditPage from '../pages/friend/edit'
+import FriendEditPage from "../pages/friend/edit";
 
 export default function Routes() {
   return (

@@ -29,7 +29,6 @@ const Navigation = ({ children }) => {
             <TeamOutlined style={{ fontSize: 28 }} />
             <Text style={{ fontSize: 18, color: "#ffff" }}>Amigo secreto</Text>
           </Menu.Item>
-
         </Menu>
       </Sider>
       <Layout className="site-layout">

@@ -1,6 +1,7 @@
 const { Router } = require("express");
 
 const FriendController = require("../app/Controllers/FriendController");
+const MailController = require("../app/Controllers/MailController");
 
 const routes = new Router();
 
@@ -13,5 +14,7 @@ routes.get("/friends/:id", FriendController.show);
 routes.post("/friends", FriendController.store);
 routes.put("/friends/:id", FriendController.update);
 routes.delete("/friends/:id", FriendController.destroy);
+
+routes.get('/sendmail', MailController.sendMail);
 
 module.exports = routes;

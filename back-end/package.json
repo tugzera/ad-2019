@@ -8,9 +8,13 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "email-templates": "^7.0.4",
     "express": "^4.17.1",
     "mongodb": "^3.5.5",
-    "mongoose": "^5.9.7"
+    "mongoose": "^5.9.7",
+    "nodemailer-express-handlebars": "^4.0.0",
+    "pug": "^2.0.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.3",

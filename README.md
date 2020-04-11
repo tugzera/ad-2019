@@ -12,12 +12,14 @@ Utilizou na sua implementação as seguintes tecnologias:
 
 # How to run?
 
+Dentro da pasta back-end, copie a file teste.env, renomeando a para .env e substituta os valores de username e password por um usuário valido.
+
 - Caso tenha o docker-compose instalado na sua máquina utilize o comando:
 
 \$ sudo docker-compose up -d --build
 
-Dentro da pasta back-end, copie a file teste.env, renomeando a para .env e substituta os valores de username e password por um usuário valido.
-
 - Caso não tenha o docker-compose instalado você pode seguir este tutorial:
 
 https://computingforgeeks.com/install-docker-and-docker-compose-on-linux-mint-19/
+
+![Adireto](images/adireto.gif)

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Button, Table, Row, Modal, Typography } from "antd";
+import { Card, Button, Table, Row, Modal, Typography, message } from "antd";
 import { FaUserPlus } from "react-icons/fa";
 import collect from "collect.js";
 
+import api from "../../services/api";
 import makeSortedList from "../../utils";
 import history from "../../services/history.js";
 import Friends from "../../store/modules/friends";
@@ -133,6 +134,32 @@ const Friend = () => {
   // Controller for modal state on randomize
   const [randomModal, setRandomModal] = useState(false);
 
+  // Controller loading for send mail
+  const [mail, setMail] = useState(false);
+
+  // Function to handle the mail sender to each friend listed withe their respected secret-friend
+  const handleMailSender = async (data) => {
+    setMail(true);
+    var successCounter = 0;
+    for (let i = 0; i < data.length; i++) {
+      const obj = {
+        fromUser: data[i][0].name,
+        toUser: data[i][1].name,
+        email: data[i][0].email,
+      };
+      const response = await api.post("/sendmail", obj);
+      if (response.status === 200) {
+        successCounter++;
+      }
+    }
+    if (successCounter === data.length) {
+      message.success(
+        "O sorteiro foi realizado corretamente, e os email já foram enviados. "
+      );
+    }
+    setMail(false);
+  };
+
   return (
     <>
       <Modal
@@ -153,16 +180,16 @@ const Friend = () => {
         title="Você deseja confirmar a lista abaixo no jogo do amigo secreto?"
         visible={randomModal}
         onOk={() => {
-          console.log(
-            makeSortedList(
-              collect(selected)
-                .map((item) => ({
-                  _id: item._id,
-                  name: item.name,
-                }))
-                .toArray()
-            )
+          const items = makeSortedList(
+            collect(selected)
+              .map((item) => ({
+                _id: item._id,
+                name: item.name,
+                email: item.email,
+              }))
+              .toArray()
           );
+          handleMailSender(items);
           setRandomModal(false);
         }}
         onCancel={() => setRandomModal(false)}
@@ -215,6 +242,7 @@ const Friend = () => {
             block
             size="large"
             type="primary"
+            loading={mail}
             disabled={selected.length % 2 === 0 ? false : true}
             onClick={() => setRandomModal(true)}
           >

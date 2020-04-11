@@ -1,16 +1,19 @@
+// Split the list in 2 parts
 const splitList = (index, list) => {
   var a = list.slice(0, index);
   var b = list.slice(index, list.length);
   return [a, b];
 };
 
+// Randomize the list of friends
 const randomSorter = (list) => {
   return list.slice(0).sort(() => {
     return 0.5 - Math.random();
   });
 };
 
-var makePairs = (list) => {
+// Group list items in pairs
+const makePairs = (list) => {
   return list[0].map((_, i) => {
     return list.map((item) => {
       return item[i];

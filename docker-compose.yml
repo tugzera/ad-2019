@@ -2,37 +2,37 @@ version: "3"
 
 services:
   frontend:
+    container_name: front
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+  api:
     build:
       dockerfile: ./Dockerfile
-      context: ./front-end
-    container_name: frontend
+      context: ./back-end
+    container_name: api
     ports:
-      - 3000:3000
+      - 3333:3333
     networks:
       - jupiter
-  # api:
-  #   build:
-  #     dockerfile: ./Dockerfile
-  #     context: ./back-end
-  #   container_name: api
-  #   ports:
-  #     - 3333:3333
-  #   networks:
-  #     - jupiter
-  #   depends_on:
-  #     - mongodb
-  # mongodb:
-  #   image: mongo:latest
-  #   container_name: mongodb
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: root
-  #   ports:
-  #     - 27017:27017
-  #   volumes:
-  #     - ./database:/data/db
-  #   networks:
-  #     - jupiter
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    volumes:
+      - ./database:/data/db
+    networks:
+      - jupiter
 
 networks:
   jupiter:

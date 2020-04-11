@@ -1,15 +1,29 @@
-FROM node:12.4.0-alpine
+#Build Stage Start
 
-RUN mkdir -p /home/node/frontend/
+#Specify a base image
+FROM node:12.4.0-alpine as builder
 
-WORKDIR /home/node/frontend/
+#Specify a working directory
+WORKDIR '/app'
 
-COPY . .
+#Copy the dependencies file
+COPY package.json .
 
-RUN rm -rf node_modules/
-
+#Install dependencies
 RUN npm install -qy
 
-EXPOSE 3000
+#Copy remaining files
+COPY . .
 
-CMD ["npm", "run", "start"]
+#Build the project for production
+RUN npm run build 
+
+#Run Stage Start
+FROM nginx
+
+#Copy production build files from builder phase to nginx
+COPY --from=builder /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx","-g","daemon off;"]

@@ -47,7 +47,7 @@ class FriendController {
       const { id } = req.params;
       const item = await Friend.findById(id);
       if (item) {
-        await item.remove()
+        await item.remove();
         return res.end();
       }
       throw new Error();

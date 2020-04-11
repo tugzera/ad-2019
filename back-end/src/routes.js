@@ -15,6 +15,6 @@ routes.post("/friends", FriendController.store);
 routes.put("/friends/:id", FriendController.update);
 routes.delete("/friends/:id", FriendController.destroy);
 
-routes.post('/sendmail', MailController.sendMail);
+routes.post("/sendmail", MailController.sendMail);
 
 module.exports = routes;

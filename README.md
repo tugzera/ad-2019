@@ -22,4 +22,8 @@ Dentro da pasta back-end, copie a file teste.env, renomeando a para .env e subst
 
 https://computingforgeeks.com/install-docker-and-docker-compose-on-linux-mint-19/
 
+- Acesso:
+
+http://localhost/
+
 ![Adireto](images/adireto.gif)

@@ -12,7 +12,7 @@
     "collect.js": "^4.20.3",
     "customize-cra": "^0.9.1",
     "history": "^4.10.1",
-    "immer": "^6.0.3",
+    "immer": "^8.0.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "react": "^16.13.1",
